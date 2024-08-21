@@ -211,6 +211,8 @@ spec:
                         - name
                         - namespace
                         type: object
+                    required:
+                    - secretRef
                     type: object
                   url:
                     description: URL is the hook URL.
@@ -219,6 +221,7 @@ spec:
                     description: WikiPageEvents triggers hook on wiki events.
                     type: boolean
                 required:
+                - token
                 - url
                 type: object
               managementPolicies:

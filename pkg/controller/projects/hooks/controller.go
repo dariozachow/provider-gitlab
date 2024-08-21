@@ -48,7 +48,7 @@ const (
 	errCreateFailed     = "cannot create Gitlab project hook"
 	errUpdateFailed     = "cannot update Gitlab project hook"
 	errDeleteFailed     = "cannot delete Gitlab project hook"
-	errSecretRefInvalid = "cannot read secret reference"
+	errSecretRefInvalid = "invalid token reference"
 )
 
 // SetupHook adds a controller that reconciles Hooks.
@@ -156,7 +156,7 @@ func (e *external) Create(ctx context.Context, mg resource.Managed) (managed.Ext
 	hookOptions, err := projects.GenerateCreateHookOptions(&cr.Spec.ForProvider, e.kube, ctx)
 
 	if err != nil {
-		return managed.ExternalCreation{}, errors.New(errSecretRefInvalid)
+		return managed.ExternalCreation{}, errors.Wrap(err, errSecretRefInvalid)
 	}
 
 	hook, _, err := e.client.AddProjectHook(*cr.Spec.ForProvider.ProjectID, hookOptions, gitlab.WithContext(ctx))

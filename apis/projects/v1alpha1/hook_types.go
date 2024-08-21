@@ -90,7 +90,11 @@ type HookParameters struct {
 
 	// Token is the secret token to validate received payloads.
 	// +optional
-	Token *string `json:"token,omitempty"`
+	Token *Token `json:"token,omitempty"`
+}
+
+type Token struct {
+	SecretRef *xpv1.SecretKeySelector `json:"secretRef,omitempty"`
 }
 
 // HookObservation represents a project hook.
